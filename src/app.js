@@ -7,6 +7,7 @@ import { Home, Profile, ExternalApi } from "./views";
 import ProtectedRoute from "./auth/protected-route";
 
 import "./app.css";
+import Auth0ProviderWithHistory from "./auth0Provider";
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -16,17 +17,19 @@ const App = () => {
   }
 
   return (
-    <div id="app" className="d-flex flex-column h-100">
-      <NavBar />
-      <div className="container flex-grow-1">
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <ProtectedRoute path="/profile" component={Profile} />
-          <ProtectedRoute path="/external-api" component={ExternalApi} />
-        </Switch>
+    <Auth0ProviderWithHistory>
+      <div id="app" className="d-flex flex-column h-100">
+        <NavBar />
+        <div className="container flex-grow-1">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <ProtectedRoute path="/profile" component={Profile} />
+            <ProtectedRoute path="/external-api" component={ExternalApi} />
+          </Switch>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </Auth0ProviderWithHistory>
   );
 };
 
